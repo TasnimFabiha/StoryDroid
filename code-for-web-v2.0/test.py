@@ -321,7 +321,7 @@ def endLoad():
             tag = f + '.apk error!'
             del inputFiles[:]
             return str(tag)
-        apk_dir = (dirNow).split('/code')[0]+'/main-folder/apksT/'
+        apk_dir = (dirNow).split('/code')[0]+'/main-folder/apks/'
         apk_path = apk_dir + f + '.apk'
         print apk_path
         # apk_path = rename(apk_path, apk_dir)
@@ -329,7 +329,11 @@ def endLoad():
         apk_name = outN[f]
         print apk_name
         apkNameL.append(apk_name)
-        os.remove(apk_path)
+        try:
+            os.remove(apk_path)
+        except OSError:
+            pass
+        # os.remove(apk_path)
         inputFiles.remove(f)
 
         filePath = (dirNow).split('/code')[0]+'/main-folder/outputs/' + apk_name + '/output/index.html'

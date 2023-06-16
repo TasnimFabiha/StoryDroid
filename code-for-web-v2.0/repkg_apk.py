@@ -129,7 +129,7 @@ def startRepkg(apk_path, apkname, apkresult_folder, output):
             modifyManifestAgain(apkname, line_num)
             recompileInfo = recompile(apkname)
             break
-        if "Built apk..." in line:
+        if "Built apk" in line:
             builtApk = True
             print "Successfully recompile an apk!!!"
 

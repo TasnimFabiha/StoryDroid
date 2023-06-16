@@ -15,7 +15,7 @@ def getActUtg():
     nodeIdSet = []
     nodesSet = {}
     for apk in os.listdir(outputPath):
-        if apk == "IC3_fail.txt" or apk == "log.txt":
+        if apk == '.DS_Store' or apk == "IC3_fail.txt" or apk == "log.txt":
             continue
         print(apk)
         for item in os.listdir(os.path.join(outputPath, apk, "screenshots")):
@@ -237,13 +237,24 @@ def get_componentsUTG(dirNow):
             for img in os.listdir(os.path.join(componentsPath, act, cl)):
                 imgPath = os.path.join(componentsPath, act, cl, img)
                 nodeId = img
-                apk = img.split('*')[1]
+                if "*" in img:
+                    apk = img.split('*')[1]
+                else:
+                    apk = img.split('_')[1]
+
+                #apk = img.split('*')[1]
                 node = {}
                 nodeIdSet.append(nodeId)
                 node["id"] = img
                 # node["id"] = act + 'Activity_' + cl
                 node["shape"] = "image"
-                node["label"] = img.split('*')[-1].split('.png')[0] + '_' + cl
+
+                if "*" in img:
+                    node["label"] = img.split('*')[-1].split('.png')[0] + '_' + cl
+                else:
+                    node["label"] = img.split('*')[-1].split('.png')[0] + '_' + cl
+                
+                
                 node["app"] = apk
                 # print imgPath
                 node["image"] = "/static/" + imgPath.split('static/')[1]

@@ -12,7 +12,7 @@ import csv
 import os
 
 #emulator = sys.argv[1]
-emulator = 'emulator-5554'
+emulator = 'emulator-5554'#'emulator-5554'
 
 launchActivity = ''
 defined_pkg_name = ''
@@ -35,12 +35,12 @@ if 'Linux' in env_os: # Ubuntu
     ic3_path = '/media/dell/49fff1d2-ef19-4e4d-855b-4eca95be873a/dell/Xiangyu/StoryDroid/main-folder/IC3/'
 
 if 'Darwin' in env_os: # Macbook
-    java_home_path = '/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home'
-    sdk_platform_path = '/Users/chensen/Tools/storydistiller/config/libs/android-platforms/'
-    lib_home_path = '/Users/chensen/Tools/storydistiller/config/libs/'
-    callbacks_path = '/Users/chensen/Tools/storydistiller/config/AndroidCallbacks.txt'
-    jadx_path = '/Users/chensen/Tools/storydroid_v1/jadx-master/'
-    ic3_path = '/Users/chensen/Tools/storydroid_v1/IC3/'
+    java_home_path = '/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home'
+    sdk_platform_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/config/libs/android-platforms'
+    lib_home_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/config/libs'
+    callbacks_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/config/AndroidCallbacks.txt'
+    jadx_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/jadx-master/'
+    ic3_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/IC3/'
 
 '''
 Rename the app name
@@ -84,7 +84,7 @@ Decomile the apk and get the Java appstory
 def decompile(apk_path, apk_name):
     global launchActivity
     #bin_path = output + 'jadx-master/build/jadx/bin/'
-    bin_path = jadx_path + 'build/jadx/bin/'
+    bin_path = jadx_path + 'jadx-1.4.6/bin/'
     results_visual = output + 'outputs/' + apk_name + '/'
     results_visual_icon = results_visual + 'icon/'
     if not os.path.exists(results_visual):
@@ -124,7 +124,7 @@ def run_IC3(apk_path):
     '''
     open(results_IC3,'wb').write('')
     IC3_home = ic3_path + 'ic3-0.2.0/'
-    IC3_jar = IC3_home + 'ic3-0.2.0-full.jar'
+    IC3_jar = IC3_home + 'ic3-0.2.0-full.jar'#'ic3-0.2.0-full.jar'
     IC3_android_jar = IC3_home + 'android.jar'
     fail_writer = open(IC3_fail_file, 'ab')
     os.chdir(IC3_home)
@@ -340,12 +340,12 @@ For the input of IC3
 '''
 def getSootOutput(apk_path, apk_name):
     if 'Linux' in env_os:
-        sootOutput_jar = output + '/config/getSootOutput-Ubuntu.jar'
+        sootOutput_jar = output + 'config/getSootOutput-Ubuntu.jar'
     if 'Darwin' in env_os:
-        sootOutput_jar = output + '/config/getSootOutput-Macbook.jar'
+        sootOutput_jar = output + 'config/getSootOutput-Macbook.jar'
 
     print 'java -jar %s %s %s %s %s' % (sootOutput_jar, sootOutput_dir, apk_name, output, apk_path)
-    os.chdir(output + '/config/')
+    os.chdir(output + 'config/')
     os.system('java -jar %s %s %s %s %s' % (sootOutput_jar, sootOutput_dir, apk_name, output, apk_path))
 
 def get_failed_startup_acts(all_acts):
@@ -426,7 +426,8 @@ def getLogData(all_acts, results_visulization_ICCs, results_visulization_ICCs_st
 if __name__ == '__main__':
 
     # output = sys.argv[1] # Main folder path
-    output = '/media/dell/49fff1d2-ef19-4e4d-855b-4eca95be873a/dell/Xiangyu/StoryDroid/main-folder/'
+    
+    output = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/'
     #output = '/Users/chensen/Tools/storydistiller/'
     # adb = sys.argv[2] # adb emulator
     adb = 'adb '
@@ -476,7 +477,7 @@ if __name__ == '__main__':
             '''
             Create output folder
             '''
-            dir = output + '/outputs/' + apk_name + '/'
+            dir = output + 'outputs/' + apk_name + '/'
             if not os.path.exists(dir):
                 os.makedirs(dir)
 

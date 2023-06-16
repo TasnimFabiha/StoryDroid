@@ -35,12 +35,12 @@ if 'Linux' in env_os: # Ubuntu
     ic3_path = '/media/dell/49fff1d2-ef19-4e4d-855b-4eca95be873a/dell/Xiangyu/StoryDroid/main-folder/IC3/'
 
 if 'Darwin' in env_os: # Macbook
-    java_home_path = '/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home'
-    sdk_platform_path = '/Users/chensen/Tools/storydistiller/config/libs/android-platforms/'
-    lib_home_path = '/Users/chensen/Tools/storydistiller/config/libs/'
-    callbacks_path = '/Users/chensen/Tools/storydistiller/config/AndroidCallbacks.txt'
-    jadx_path = '/Users/chensen/Tools/storydroid_v1/jadx-master/'
-    ic3_path = '/Users/chensen/Tools/storydroid_v1/IC3/'
+    java_home_path = '/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home'
+    sdk_platform_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/config/libs/android-platforms'
+    lib_home_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/config/libs'
+    callbacks_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/config/AndroidCallbacks.txt'
+    jadx_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/jadx-master/'
+    ic3_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/IC3/'
 
 '''
 Rename the app name
@@ -50,6 +50,7 @@ def rename(apk_path, apk_dir):
     global used_pkg_name
     # defined_pkg_name = commands.getoutput('aapt dump badging %s | grep package | awk \'{print $2}\' | sed s/name=//g | sed s/\\\'//g'%(apk_path))
     pkg_line = commands.getoutput('aapt dump badging %s | grep package' % (apk_path))
+    print "pkg_line:" + pkg_line
     defined_pkg_name = pkg_line.split('\'')[1]
     launcher = commands.getoutput(r"aapt dump badging " + apk_path + " | grep launchable-activity | awk '{print $2}'")
     # Sometimes launcher is empty or launcher starts with "."
@@ -340,12 +341,12 @@ For the input of IC3
 '''
 def getSootOutput(apk_path, apk_name):
     if 'Linux' in env_os:
-        sootOutput_jar = output + '/config/getSootOutput-Ubuntu.jar'
+        sootOutput_jar = output + 'config/getSootOutput-Ubuntu.jar'
     if 'Darwin' in env_os:
-        sootOutput_jar = output + '/config/getSootOutput-Macbook.jar'
+        sootOutput_jar = output + 'config/getSootOutput-Macbook.jar'
 
     print 'java -jar %s %s %s %s %s' % (sootOutput_jar, sootOutput_dir, apk_name, output, apk_path)
-    os.chdir(output + '/config/')
+    os.chdir(output + 'config/')
     os.system('java -jar %s %s %s %s %s' % (sootOutput_jar, sootOutput_dir, apk_name, output, apk_path))
 
 def get_failed_startup_acts(all_acts):
@@ -425,7 +426,7 @@ def getLogData(all_acts, results_visulization_ICCs, results_visulization_ICCs_st
 if __name__ == '__main__':
 
     # output = sys.argv[1] # Main folder path
-    output = '/media/dell/49fff1d2-ef19-4e4d-855b-4eca95be873a/dell/Xiangyu/StoryDroid/main-folder/'
+    output = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/'
     #output = '/Users/chensen/Tools/storydistiller/'
     # adb = sys.argv[2] # adb emulator
     adb = 'adb '
@@ -475,7 +476,7 @@ if __name__ == '__main__':
             '''
             Create output folder
             '''
-            dir = output + '/outputs/' + apk_name + '/'
+            dir = output + 'outputs/' + apk_name + '/'
             if not os.path.exists(dir):
                 os.makedirs(dir)
 

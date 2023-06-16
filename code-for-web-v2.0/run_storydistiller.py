@@ -13,8 +13,8 @@ import os
 import sys
 
 #emulator = sys.argv[1]
-#emulator = 'emulator-5554'
-emulator = '192.168.56.101:5555'
+emulator = 'emulator-5554'
+# emulator = '192.168.56.101:5554'
 
 launchActivity = ''
 defined_pkg_name = ''
@@ -39,12 +39,12 @@ if 'Linux' in env_os: # Ubuntu
     ic3_path = toolPath + '/IC3/'
 
 if 'Darwin' in env_os: # Macbook
-    java_home_path = '/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home'
-    sdk_platform_path = '/Users/chensen/Tools/storydistiller/config/libs/android-platforms/'
-    lib_home_path = '/Users/chensen/Tools/storydistiller/config/libs/'
-    callbacks_path = '/Users/chensen/Tools/storydistiller/config/AndroidCallbacks.txt'
-    jadx_path = '/Users/chensen/Tools/storydroid_v1/jadx-master/'
-    ic3_path = '/Users/chensen/Tools/storydroid_v1/IC3/'
+    java_home_path = '/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home'
+    sdk_platform_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/config/libs/android-platforms'
+    lib_home_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/config/libs'
+    callbacks_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/config/AndroidCallbacks.txt'
+    jadx_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/jadx-master/'
+    ic3_path = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/IC3/'
 
 '''
 Rename the app name
@@ -87,7 +87,8 @@ def decompile(apk_path, apk_name, output):
     global launchActivity
     #bin_path = output + 'jadx-master/build/jadx/bin/'
     #bin_path = jadx_path + 'build/jadx/bin/'
-    bin_path = '/home/zyx/software/jadx-1.3.0/bin'
+    # bin_path = '/home/zyx/software/jadx-1.3.0/bin'
+    bin_path = output + 'jadx-master/jadx-1.4.6/bin/'
     results_visual = output + 'outputs/' + apk_name + '/'
     results_visual_icon = results_visual + 'icon/'
     if not os.path.exists(results_visual):
@@ -403,7 +404,7 @@ def main():
     outN = {}
     # output = sys.argv[1] # Main folder path
     print "start to analyse!"
-    output = toolPath + '/main-folder/'
+    output = '/Users/fabiha/Documents/projects/storydroid/StoryDroid/main-folder/'
     #output = '/Users/chensen/Tools/storydistiller/'
     # adb = sys.argv[2] # adb emulator
 
@@ -495,7 +496,7 @@ def main():
             print '[6] Parse call graphs is done'
 
             print '[7] Get JIMPLE ' + apk_name
-            shutil.rmtree(sootOutput_dir)  # Delete sootOutput
+            shutil.rmtree(sootOutput_dir, ignore_errors=True)  # Delete sootOutput
             #os.chdir(output + 'apktojimple')
             #os.system('./decompile.sh %s %s'%(apk_path, sootOutput_dir))
             #print '[7] Get Jimple is done'
@@ -556,7 +557,7 @@ def main():
 
             # zyx
             if all_acts == 0:
-                shutil.rmtree(result_apkfolder)
+                shutil.rmtree(result_apkfolder, ignore_errors=True)
                 os.remove(apk_path)
                 outT[org_apk_name] = 0
                 continue
